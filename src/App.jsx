@@ -6,6 +6,7 @@ import MovieList from './MovieList';
 import SearchForm from './SearchForm';
 import Booking from './Booking'; // Update the path based on your file structure
 import './Apps.css';
+import './App.css';
 import 'D:/code/movie/movie-ticket-app/src/App.css';
 // import './Seats.jsx';
 
