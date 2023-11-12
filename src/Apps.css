@@ -1,0 +1,47 @@
+.movie-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-direction: row; /* Spread in horizontal direction */
+  }
+  
+  .movie {
+    background-color: #373b69;
+    border-radius: 1px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    position: relative;
+    margin: 1rem;
+    width: 200px; /* Decreased width */
+  }
+  
+  .movie img {
+    width: 95%;
+    height: auto;
+  }
+  
+  .movie-info {
+    color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0.5rem 1rem 1rem;
+    letter-spacing: 1px;
+  }
+  
+  .movie-info h3 {
+    margin: 2;
+  }
+  
+  .modal {
+    display: row;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    
+  }
+  
