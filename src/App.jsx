@@ -1,16 +1,13 @@
-// App.js
-import React, { useState, useEffect, useRef } from 'react';
+// App.jsx
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import MovieService from './MovieService';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MovieList from './MovieList';
 import SearchForm from './SearchForm';
-import Booking from './Booking'; // Update the path based on your file structure
+import Booking from './Booking';
+import Payment from './Payment';
 import './Apps.css';
 import './App.css';
-import 'D:/code/movie/movie-ticket-app/src/App.css';
-// import './Seats.jsx';
-
-
 
 const App = () => {
   const [movies, setMovies] = useState([]);
@@ -24,21 +21,29 @@ const App = () => {
     setMovies(popularMovies);
   };
 
-  const handleSearch = async (searchTerm) => {
-    const searchResults = await MovieService.searchMovies(searchTerm);
+  const handleSearch = async (searchTerm, filters) => {
+    const searchResults = await MovieService.searchMovies(searchTerm, filters);
     setMovies(searchResults);
   };
 
-  // Correct usage of useRef
-  const seatsRef = useRef();
-
   return (
-    <div className="App">
-      <SearchForm onSearch={handleSearch} />
-      <MovieList movies={movies} />
-      {/* Pass the seatsRef as a prop to the Booking component */}
-      <Booking seatsRef={seatsRef} />
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <SearchForm onSearch={handleSearch} />
+                <MovieList movies={movies} />
+              </>
+            }
+          />
+          <Route path="/booking" element={<Booking />} />
+          <Route path="/payment" element={<Payment />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 

@@ -29,7 +29,93 @@ h1 {
 }
 
 .movie-container {
+  margin: 20px;
+}
+
+.showcase {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
   margin: 20px 0;
+  padding: 0;
+}
+
+.showcase li {
+  display: flex;
+  align-items: center;
+}
+
+.showcase .seat {
+  width: 20px;
+  height: 20px;
+  background-color: #444451;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.showcase .seat.selected {
+  background-color: #6feaf6;
+}
+
+.showcase .seat.sold {
+  background-color: #fff;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+.seat {
+  background-color: #444451;
+  height: 30px;
+  width: 30px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.seat.selected {
+  background-color: #6feaf6;
+}
+
+.seat.sold {
+  background-color: #fff;
+  cursor: not-allowed;
+}
+
+.screen {
+  background-color: #fff;
+  height: 70px;
+  width: 100%;
+  margin: 15px 0;
+  transform: rotateX(-45deg);
+  box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);
+}
+
+.text {
+  margin-top: 20px;
+}
+
+.buy-now-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #444451;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.buy-now-btn:hover {
+  background-color: #6feaf6;
 }
 
 .movie-container select {
@@ -158,7 +244,42 @@ header {
     font-size: 1rem;
     padding: 0.5rem 1rem;
 }
+.search-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
 
+.search-form input,
+.search-form button {
+  margin: 5px;
+}
+
+.search-form input {
+  width: 300px;
+  height: 30px;
+  font-size: 16px;
+}
+
+.search-form button {
+  padding: 5px 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.filters input {
+  width: 150px;
+  height: 30px;
+  font-size: 16px;
+  margin: 5px;
+}
 .search::placeholder {
     color: #7378c5;
 }
@@ -195,7 +316,40 @@ main {
     padding: 0.5rem 1rem 1rem;
     letter-spacing: 1.5px;
 }
+.payment-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
 
+.payment-container h2 {
+  margin-bottom: 20px;
+}
+
+.payment-container p {
+  margin-bottom: 20px;
+}
+
+form {
+  margin-top: 20px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #444451;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #6feaf6;
+}
 .movie-info h3 {
     margin: 5;
 }

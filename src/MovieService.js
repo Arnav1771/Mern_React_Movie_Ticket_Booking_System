@@ -18,8 +18,26 @@ const MovieService = {
     return moviesWithThumbnails;
   },
 
-  searchMovies: async (query) => {
-    const url = `${API_BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}`;
+  searchMovies: async (query, filters = {}) => {
+    let url = `${API_BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}`;
+
+    // Add filters to the URL
+    if (filters.genre) {
+      url += `&with_genres=${filters.genre}`;
+    }
+    if (filters.actor) {
+      url += `&with_cast=${filters.actor}`;
+    }
+    if (filters.director) {
+      url += `&with_crew=${filters.director}`;
+    }
+    if (filters.releaseDate) {
+      url += `&primary_release_year=${filters.releaseDate}`;
+    }
+    if (filters.theaterLocation) {
+      url += `&region=${filters.theaterLocation}`;
+    }
+
     const response = await fetch(url);
     const data = await response.json();
 

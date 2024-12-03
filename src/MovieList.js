@@ -1,10 +1,12 @@
+// MovieList.js
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const MovieList = ({ movies, onBookTicket }) => {
-  const handleBookTicket = (title) => {
-    if (typeof onBookTicket === 'function') {
-      onBookTicket(title);
-    }
+const MovieList = ({ movies }) => {
+  const navigate = useNavigate();
+
+  const handleBookTicket = (movieName) => {
+    navigate('/booking', { state: { movieName } });
   };
 
   return (

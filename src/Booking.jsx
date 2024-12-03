@@ -1,7 +1,12 @@
+// Booking.jsx
 import React, { useEffect } from 'react';
-import './App.css'; // Import your CSS file
+import { useLocation } from 'react-router-dom';
+import './App.css';
 
 const Booking = () => {
+  const location = useLocation();
+  const movieName = location.state?.movieName || 'Unknown Movie';
+
   useEffect(() => {
     const container = document.querySelector(".container");
     const seats = document.querySelectorAll(".row .seat:not(.sold)");
@@ -13,88 +18,69 @@ const Booking = () => {
     
     let ticketPrice = +movieSelect.value;
     
-    // Save selected movie index and price
     function setMovieData(movieIndex, moviePrice) {
       localStorage.setItem("selectedMovieIndex", movieIndex);
       localStorage.setItem("selectedMoviePrice", moviePrice);
     }
     
-    // Update total and count
     function updateSelectedCount() {
       const selectedSeats = document.querySelectorAll(".row .seat.selected");
-    
       const seatsIndex = [...selectedSeats].map((seat) => [...seats].indexOf(seat));
-    
       localStorage.setItem("selectedSeats", JSON.stringify(seatsIndex));
-    
       const selectedSeatsCount = selectedSeats.length;
-    
       count.innerText = selectedSeatsCount;
       total.innerText = selectedSeatsCount * ticketPrice;
-    
       setMovieData(movieSelect.selectedIndex, movieSelect.value);
     }
     
-    
-    // Get data from localstorage and populate UI
     function populateUI() {
       const selectedSeats = JSON.parse(localStorage.getItem("selectedSeats"));
-    
       if (selectedSeats !== null && selectedSeats.length > 0) {
         seats.forEach((seat, index) => {
           if (selectedSeats.indexOf(index) > -1) {
-            console.log(seat.classList.add("selected"));
+            seat.classList.add("selected");
           }
         });
       }
-    
       const selectedMovieIndex = localStorage.getItem("selectedMovieIndex");
-    
       if (selectedMovieIndex !== null) {
         movieSelect.selectedIndex = selectedMovieIndex;
-        console.log(selectedMovieIndex)
       }
     }
-    console.log(populateUI())
-    // Movie select event
+    
     movieSelect.addEventListener("change", (e) => {
       ticketPrice = +e.target.value;
       setMovieData(e.target.selectedIndex, e.target.value);
       updateSelectedCount();
     });
     
-    // Seat click event
     container.addEventListener("click", (e) => {
-      if (
-        e.target.classList.contains("seat") &&
-        !e.target.classList.contains("sold")
-      ) {
+      if (e.target.classList.contains("seat") && !e.target.classList.contains("sold")) {
         e.target.classList.toggle("selected");
-    
         updateSelectedCount();
       }
     });
     
-    // Initial count and total set
     updateSelectedCount();
-    
-    return () => {
-      // Clean up logic
-    };
   }, []);
 
-  const handleBookTicket = () => {
-    // Open a new window with the "second.html" file
-    const newWindow = window.open('second.html', '_blank');
-    if (newWindow) {
-      newWindow.focus();
+  const handleBuyNow = () => {
+    const selectedSeats = JSON.parse(localStorage.getItem("selectedSeats"));
+
+    if (selectedSeats && selectedSeats.length > 0) {
+      alert(`You have successfully booked ${selectedSeats.length} seats for a total price of RS.${document.getElementById("total").innerText} for the movie ${movieName}`);
+      localStorage.removeItem("selectedSeats");
+      localStorage.removeItem("selectedMovieIndex");
+      localStorage.removeItem("selectedMoviePrice");
+      window.location.reload();
     } else {
-      // Handle popup blocker or other issues
-      console.error('Unable to open new window. Please check your browser settings.');
+      alert("Please select at least one seat to proceed with booking.");
     }
   };
+
   return (
     <div className="movie-container">
+      <h2>{movieName}</h2>
       <select id="movie">
         <option value="240">Silver (RS.240)</option>
         <option value="300">Gold (RS.300)</option>
@@ -118,77 +104,25 @@ const Booking = () => {
         </li>
       </ul>
 
+      <div className="screen"></div>
+
       <div className="container">
-      {/* <div class="screen"></div> */}
-
-      <div class="row">
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
+        {[...Array(10)].map((_, rowIndex) => (
+          <div className="row" key={rowIndex}>
+            {[...Array(10)].map((_, seatIndex) => (
+              <div
+                className={`seat ${rowIndex === 1 && seatIndex === 4 ? 'sold' : ''} ${rowIndex === 2 && seatIndex === 5 ? 'sold' : ''} ${rowIndex === 3 && seatIndex === 6 ? 'sold' : ''}`}
+                key={seatIndex}
+              ></div>
+            ))}
+          </div>
+        ))}
       </div>
-
-      <div class="row">
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat sold"></div>
-        <div class="seat sold"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-      </div>
-      <div class="row">
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat sold"></div>
-        <div class="seat sold"></div>
-      </div>
-      <div class="row">
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-      </div>
-      <div class="row">
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat sold"></div>
-        <div class="seat sold"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-      </div>
-      <div class="row">
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat sold"></div>
-        <div class="seat sold"></div>
-        <div class="seat sold"></div>
-        <div class="seat"></div>
-      </div>
-    </div>
 
       <p className="text">
         You have selected <span id="count">0</span> seat for a price of RS.<span id="total">0</span>
       </p>
-
-      <button onClick={handleBookTicket}>Book Ticket</button>
+      <button onClick={handleBuyNow} className="buy-now-btn">Buy Now</button>
     </div>
   );
 };
