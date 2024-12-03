@@ -1,70 +1,74 @@
-# Getting Started with Create React App
+# Coding Block Assignment - Movie Ticket Booking System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a Movie Ticket Booking System built using React. It allows users to search for movies, view details, select seats, and make payments securely using Stripe.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [API Integration](#api-integration)
+- [Payment Integration](#payment-integration)
+- [Contributing](#contributing)
+- [License](#license)
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Search for movies by title, genre, actors, or director.
+- Advanced filters to refine search results by date, genre, theater location, and more.
+- View movie details and ratings.
+- Select seats for booking.
+- Secure payment processing using Stripe.
+- Responsive design for a seamless experience on different devices.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Installation
 
-### `npm test`
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/your-username/movie-ticket-booking-system.git
+    cd movie-ticket-booking-system
+    ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Install dependencies:
+    ```sh
+    npm install
+    ```
 
-### `npm run build`
+3. Start the development server:
+    ```sh
+    npm start
+    ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. Start the backend server for payment processing:
+    ```sh
+    npm run server
+    ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Usage
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Open your browser and navigate to `http://localhost:3000`.
+2. Use the search bar to find movies by title or use the advanced filters to refine your search.
+3. Click on a movie to view details and book tickets.
+4. Select seats and proceed to payment.
+5. Enter payment details and complete the booking.
 
-### `npm run eject`
+## Project Structure
+.gitignore package.json public/ index.html manifest.json robots.txt README.md src/ App.css App.jsx App.test.js Apps.css Booking.jsx BookingForm.jsx index.jsx Modal.css Modal.jsx MovieList.js MovieService.js OtherComponent.jsx ParentComponent.js Payment.jsx reportWebVitals.js SearchForm.js Seats.js secondFile.html setupTests.js
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## API Integration
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The project integrates with The Movie Database (TMDb) API to fetch movie data. The API key and base URL are configured in `src/MovieService.js`.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```js
+const API_KEY = 'your_tmdb_api_key';
+const API_BASE_URL = 'https://api.themoviedb.org/3';
+const IMG_BASE_URL = 'https://image.tmdb.org/t/p/w200';
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+// [Payment.jsx](http://_vscodecontentref_/23)
+const stripePromise = loadStripe('your_stripe_publishable_key');
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+// server.js
+const stripe = require('stripe')('your_stripe_secret_key');
