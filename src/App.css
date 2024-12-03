@@ -295,19 +295,22 @@ main {
 }
 
 .movie {
-    background-color: #373b69;
-    border-radius: 1px;
-    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-    position: relative;
-    margin: 1rem;
-    width: 300px;
+  background-color: #373b69;
+  border-radius: 1px;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  position: relative;
+  margin: 1rem;
+  width: 200px; /* Adjust width as needed */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .movie img {
-    width: 90%;
+  width: 100%;
+  height: auto;
 }
-
 .movie-info {
     color: #eee;
     display: 10%;

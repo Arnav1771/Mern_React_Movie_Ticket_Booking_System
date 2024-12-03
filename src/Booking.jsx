@@ -1,11 +1,14 @@
 // Booking.jsx
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import Modal from './Modal';
 import './App.css';
 
 const Booking = () => {
   const location = useLocation();
-  const movieName = location.state?.movieName || 'Unknown Movie';
+  const movieName = location.state?.movieName;
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
 
   useEffect(() => {
     const container = document.querySelector(".container");
@@ -68,14 +71,19 @@ const Booking = () => {
     const selectedSeats = JSON.parse(localStorage.getItem("selectedSeats"));
 
     if (selectedSeats && selectedSeats.length > 0) {
-      alert(`You have successfully booked ${selectedSeats.length} seats for a total price of RS.${document.getElementById("total").innerText} for the movie ${movieName}`);
+      setModalMessage(`You have successfully booked ${selectedSeats.length} seats for a total price of RS.${document.getElementById("total").innerText} for the movie ${movieName}`);
+      setShowModal(true);
       localStorage.removeItem("selectedSeats");
       localStorage.removeItem("selectedMovieIndex");
       localStorage.removeItem("selectedMoviePrice");
-      window.location.reload();
     } else {
       alert("Please select at least one seat to proceed with booking.");
     }
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    window.location.reload();
   };
 
   return (
@@ -123,6 +131,7 @@ const Booking = () => {
         You have selected <span id="count">0</span> seat for a price of RS.<span id="total">0</span>
       </p>
       <button onClick={handleBuyNow} className="buy-now-btn">Buy Now</button>
+      <Modal show={showModal} handleClose={handleCloseModal} message={modalMessage} />
     </div>
   );
 };
